@@ -1,0 +1,47 @@
+name: DeployECS
+
+# 触发时机
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      # 自动检出最新代码
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      # 设置 Node.js 环境
+      - name: Set node
+        uses: actions/setup-node@v3
+        with:
+          registry-url: https://registry.npmjs.org/
+          node-version: 16.x
+
+      # 安装 @antfu/ni ，自适应不同的 packageManager
+      - name: Setup
+        run: npm i -g @antfu/ni
+
+      # clean install ，https://pnpm.io/zh/cli/install#--frozen-lockfile
+      - name: Install
+        run: nci
+
+      # 构建
+      - name: Build
+        run: nr build
+
+      # 连接 ssh，进行部署，https://github.com/easingthemes/ssh-deploy
+      - name: Ssh-deploy
+        uses: easingthemes/ssh-deploy@main
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_KEY }}
+          ARGS: "-rltgoDzvO --delete"
+          SOURCE: ".output/public/"
+          REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
+          REMOTE_USER: ${{ secrets.REMOTE_USER }}
+          TARGET: ${{ secrets.REMOTE_TARGET }}
+          EXCLUDE: ".output/public/, /node_modules/"
