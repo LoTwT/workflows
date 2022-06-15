@@ -4,4 +4,4 @@
 
 workflows 文件放在项目目录的 `.github/workflows` 下。
 
-- [DeployECS](./DeployECS/README.md) ：使用 github actions 自动部署项目到云服务器
+- [DeployECS](https://github.com/LoTwT/workflows/tree/main/DeployECS) ：使用 github actions 自动部署项目到云服务器
