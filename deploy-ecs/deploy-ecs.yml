@@ -1,4 +1,4 @@
-name: DeployECS
+name: deploy-ecs
 
 # 触发时机
 on:
