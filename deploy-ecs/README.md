@@ -1,4 +1,4 @@
-# DeployECS
+# deploy-ecs
 
 使用 github actions 自动部署项目到云服务器。
 

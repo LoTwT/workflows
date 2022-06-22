@@ -1,4 +1,4 @@
-# GithubRelease
+# github-release
 
 使用 github actions 创建 github release 。
 
