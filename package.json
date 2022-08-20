@@ -1,10 +1,23 @@
 {
   "name": "workflows",
   "scripts": {
-    "prettier": "prettier --write ."
+    "prettier": "prettier --write .",
+    "prepare": "simple-git-hooks"
   },
   "license": "MIT",
   "dependencies": {
     "prettier": "^2.7.1"
+  },
+  "devDependencies": {
+    "lint-staged": "^13.0.3",
+    "simple-git-hooks": "^2.8.0"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "pnpm exec lint-staged"
+  },
+  "lint-staged": {
+    "*": [
+      "prettier --write --ignore-known"
+    ]
   }
 }
